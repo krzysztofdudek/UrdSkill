@@ -4,7 +4,7 @@
 
 This repository exists solely so the author can develop and version the urd skill. The canonical file is `skills/urd/SKILL.md` — people install it as a Claude Code plugin (or copy that one file into their agent's skill dir). Nothing in this repo (CLAUDE.md, CHANGELOG.md, README.md, CI, etc.) may affect the skill's mechanics. All behavior must be self-contained in `skills/urd/SKILL.md`.
 
-Urd (formerly "BePrecise") is part of the Yggdrasil family of AI-coding-agent correctness tools: it owns the **intent → code** stage — when the agent moves from a plan/spec into implementation, it consults the source of truth and asks instead of guessing. Siblings: Ratatoskr (user → intent), Yggdrasil (architecture), Researcher.
+Urd (formerly "BePrecise") is an add-on in the Yggdrasil family: it attaches to the agent, not to the graph, and works alone. It owns the **intent → code** stage — when the agent moves from a plan/spec into implementation, it consults the source of truth and asks instead of guessing. The family's core is Yggdrasil (the architecture graph and the rails), Grain (the first graph, mined from a repository's own code and history) and Horde (the loop past one agent's context), adopted in that order; Ratatoskr, Urd and Researcher are the three add-ons beside them.
 
 ## Plugin scaffolding
 
