@@ -1,0 +1,32 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "urd",
+  "version": "0.2.0",
+  "description": "Skill that makes your coding agent stop and ask instead of silently resolving spec ambiguity, picking up workarounds, or shipping 'close enough'. Accuracy over autonomy.",
+  "author": {
+    "name": "Krzysztof Dudek",
+    "url": "https://github.com/krzysztofdudek"
+  },
+  "homepage": "https://github.com/krzysztofdudek/UrdSkill",
+  "repository": "https://github.com/krzysztofdudek/UrdSkill.git",
+  "license": "MIT",
+  "keywords": [
+    "urd",
+    "claude-code",
+    "claude-code-plugin",
+    "claude-skill",
+    "ai-coding",
+    "coding-agents",
+    "spec-driven-development",
+    "implementation-discipline",
+    "ask-dont-guess",
+    "agentic-guardrails"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "urd"
+      }
+    }
+  }
+}

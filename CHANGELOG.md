@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- A portable Agent Plugins 1.0 manifest, `plugin.json` at the repository root, which Copilot and Codex read before any host-specific manifest. The host manifests stay for Claude Code, Cursor and older Copilot and Codex, with the same name, version and description.
+
 ### Changed
 - **Renamed the skill `be-precise` → `urd`** as part of unifying the Yggdrasil family (the world-tree + its keepers). Updated the skill identifier (`skills/urd/SKILL.md` `name:`), the skill directory, `plugin.json`/`marketplace.json` names, and the install command to `urd@urd-marketplace`; rebranded `README.md` into the family's shared style (the root-well / source-of-truth metaphor) with a "Part of the Yggdrasil family" block; fixed the install activation to `/reload-plugins` (the previously documented `/plugin reload` is not a real command). No behavioral change to the skill body (only `name:`, the H1 title, and one self-reference changed). The GitHub repository is renamed `BePreciseSkill` → `UrdSkill`; the old name redirects.
 
