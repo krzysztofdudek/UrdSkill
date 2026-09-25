@@ -26,6 +26,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Claude Code plugin scaffolding: `.claude-plugin/plugin.json` (manifest) and `.claude-plugin/marketplace.json` (single-plugin marketplace listing). Installable via `/plugin marketplace add krzysztofdudek/BePreciseSkill` then `/plugin install be-precise@be-precise-marketplace`. Single-file drop-in works for any agent that reads markdown skills.
 - MIT license, README, CLAUDE.md with versioning workflow.
 
-[Unreleased]: https://github.com/krzysztofdudek/BePreciseSkill/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/krzysztofdudek/BePreciseSkill/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/krzysztofdudek/BePreciseSkill/releases/tag/v0.1.0
+[Unreleased]: https://github.com/krzysztofdudek/UrdSkill/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/krzysztofdudek/UrdSkill/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/krzysztofdudek/UrdSkill/releases/tag/v0.1.0
