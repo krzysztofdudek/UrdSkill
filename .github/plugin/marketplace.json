@@ -8,7 +8,7 @@
       "name": "urd",
       "source": "./",
       "description": "Skill that makes your coding agent stop and ask instead of silently resolving spec ambiguity, picking up workarounds, or shipping 'close enough'. Accuracy over autonomy.",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "skills": [
         "./skills/urd"
       ]
