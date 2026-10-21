@@ -1,171 +1,107 @@
-<img width="1376" height="768" alt="Urd — the well at the root of the tree: your AI coding agent consults the source of truth and asks instead of guessing when the spec runs out" src="https://github.com/user-attachments/assets/47fb992b-c367-45e9-87af-58610b26e525" />
+<p align="center"><img src="assets/social-card.png" alt="Urd: when the agent moves from a plan into code and the plan runs out, it makes the agent check the source of truth or ask you, with options and a recommendation." width="720"></p>
 
 # Urd
 
 **Your AI agent hit a gap in the spec, so it guessed, and shipped.** Urd makes it stop and ask instead.
 
-The moment the agent moves from a plan into code and the plan runs out, Urd makes it **consult the source of truth or ask you** — instead of inventing an answer and burying the decision in the diff.
+Urd is one skill file. When the agent moves from a plan into code and the plan runs out, it makes the agent check the source of truth or ask you, with options and a recommendation.
+
+## What you install
+
+In Claude Code:
 
 ```
 /plugin marketplace add krzysztofdudek/UrdSkill
 /plugin install urd@urd-marketplace
 ```
 
-Run both, then `/reload-plugins` to activate it in this session (or restart Claude Code). No config, no API key. The skill activates on its own the moment the agent moves from a plan, design doc, or spec into implementation.
+Then run `/reload-plugins` or restart Claude Code. No config, no API key.
 
-> MIT licensed · single markdown file · works with any agent that reads skills · part of the [Yggdrasil family](#the-yggdrasil-family) · [full skill body](skills/urd/SKILL.md)
+| Piece | Where it lands | What it does | When it acts |
+|---|---|---|---|
+| The Urd skill, one Markdown file ([`skills/urd/SKILL.md`](skills/urd/SKILL.md)) | your Claude Code plugins | Tells the agent when to stop and ask, and how to ask. | When the agent moves from a plan, a design doc or a spec into implementation. |
 
----
+- **Never touches:** your repository, your git, the network. It installs no hook, no MCP server and no command.
+- **Needs:** an agent that reads skills.
+- **Costs:** none of its own. The skill file is about 900 words, read when the skill fires.
+- **In the agent's context:** the skill's description always; the body when it fires.
 
-## See it
+<details>
+<summary>Other agents: GitHub Copilot CLI, Cursor, a plain skill folder</summary>
 
-**Step 4 of the plan: implement the retry logic.** The plan says, verbatim:
-
-> *"On 5xx response, retry up to 3 times with exponential backoff."*
-
-Mid-implementation the agent hits a **429 (rate-limited)** — not a 5xx, but retryable. The spec is silent on it. The default agent picks something and moves on. Urd makes it stop:
-
-> **Question — retry logic, step 4.** The plan covers 5xx, but I've hit **429 (rate-limited)**: not 5xx, yet retryable. The spec doesn't say how to treat it. Three options:
->
-> 1. Treat 429 like 5xx — retry with backoff.
-> 2. Honor the `Retry-After` header if present, otherwise back off.
-> 3. Leave 429 to the caller — don't retry it here.
->
-> I'd go with (2). Proceed?
-
-**Note what it did:** it didn't resolve the ambiguity silently. Ten seconds on a decision now, instead of finding it in the diff an hour later. That's the whole skill — at the moment of doubt, ask, don't guess.
-
----
-
-## When it fires
-
-The skill activates the moment the agent moves from a plan/spec into implementation. Once active, it pushes toward asking rather than guessing whenever:
-
-- the spec is **silent** on a case the agent hit
-- the spec **contradicts itself**
-- the agent is about to add a **fallback, exception, or `TODO`** the spec didn't sanction
-- a **test would have to be weakened or skipped** to make the code pass
-- a **framework or type-system constraint** is forcing a workaround
-- the agent catches itself thinking *"this is probably fine"* without certainty
-
-Well-written plans trigger few stops. Sparse plans trigger many. That's the point.
-
----
-
-## How it asks
-
-When Urd asks, it gives you enough to decide in seconds — never an open-ended *"what should I do?"*:
-
-| It tells you | Example |
-|---|---|
-| **Where it is** in the plan | "Step 4, retry logic" |
-| **What the spec says**, verbatim | "On 5xx, retry 3× with backoff" |
-| **What it found** that doesn't fit | "hit a 429, not covered" |
-| **The options**, with trade-offs | the numbered list above |
-| **Its recommendation** | "I'd go with (2)" |
-
-It also **distinguishes verified from believed**: it states as fact only what it has checked against the source. An unverified inference — a cause, a mechanism, how an API behaves — it labels as a guess or verifies before you rely on it. Challenge a claim and it re-reads the source and corrects itself, instead of defending an answer it never confirmed.
-
----
-
-## Install
-
-### Claude Code plugin (recommended)
-
-Two slash commands. The first registers this repo as a marketplace; the second installs the plugin from it.
-
-```
-/plugin marketplace add krzysztofdudek/UrdSkill
-/plugin install urd@urd-marketplace
-```
-
-Then run `/reload-plugins` to activate it in the current session (or restart Claude Code). No config, no API key.
-
-To upgrade later, refresh the marketplace and reinstall:
-
-```
-/plugin marketplace update urd-marketplace
-/plugin install urd@urd-marketplace
-```
-
-### GitHub Copilot CLI plugin
-
-The same repo is also a [GitHub Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli) marketplace. Register it, then install the plugin:
+GitHub Copilot CLI:
 
 ```
 copilot plugin marketplace add krzysztofdudek/UrdSkill
 copilot plugin install urd@urd-marketplace
 ```
 
-To upgrade later: `copilot plugin update urd`. The same skill body powers both Claude Code and Copilot — nothing changes in how it behaves.
-
-### Codex CLI plugin
-
-Codex reads the same skill. Register this repo as a marketplace, then install:
-
-```
-codex plugin marketplace add krzysztofdudek/UrdSkill
-codex plugin install urd@urd-marketplace
-```
-
-To upgrade later: `codex plugin marketplace upgrade urd-marketplace`. Or drop the single file into `~/.agents/skills/urd/SKILL.md` (user-level) or `.agents/skills/urd/SKILL.md` (project-level).
-
-### Cursor plugin
-
-Cursor auto-discovers the skill from the plugin manifest at the repo root. Install it locally:
+Cursor:
 
 ```
 git clone https://github.com/krzysztofdudek/UrdSkill.git
 ln -s "$(pwd)/UrdSkill" ~/.cursor/plugins/local/urd
 ```
 
-Then reload Cursor (**Developer: Reload Window**). Or drop the single file into `~/.cursor/skills/urd/SKILL.md` (user-level) or `.cursor/skills/urd/SKILL.md` (project-level).
+Then **Developer: Reload Window**.
 
-### Single-file drop-in (any agent)
+A plain skill folder: copy [`skills/urd/SKILL.md`](skills/urd/SKILL.md) to `~/.claude/skills/urd/SKILL.md` (user level) or `.claude/skills/urd/SKILL.md` (project level), `~/.cursor/skills/urd/SKILL.md` for Cursor, or wherever your agent reads skills.
 
-The whole skill is one frontmatter-tagged markdown file: [`skills/urd/SKILL.md`](skills/urd/SKILL.md). Copy it into your agent's skill directory.
-
-- **Claude Code, user-level:** `~/.claude/skills/urd/SKILL.md`
-- **Claude Code, project-level:** `.claude/skills/urd/SKILL.md` in your repo
-- **Other agents:** wherever your tool reads markdown skills
-
-Nothing else in this repo affects behavior — all of it lives in that one file.
-
----
-
-## What it doesn't claim
-
-Urd is a skill that biases the agent toward asking — not a runtime guarantee it will always stop. It does not eliminate bugs, and it does not fix a vague spec for you: it surfaces the gaps so *you* can. If what you want is a fast pass with deviations resolved silently, this is deliberately the wrong tool — it trades clarification rounds for fewer wrong outcomes delivered confidently.
-
----
-
-## FAQ
-
-<details>
-<summary><b>Won't this make the agent constantly stop?</b></summary>
-
-Only when the spec doesn't cover the case. The skill carries an explicit ask-vs-proceed table — if the spec answers the question, it proceeds; if it doesn't, it asks. Most well-written plans don't trigger many stops. Sparse plans do — and that's the signal you wanted.
 </details>
 
-<details>
-<summary><b>Does it conflict with TDD, debugging, or verification skills?</b></summary>
+## What changes on the first day
 
-No — it composes. It governs the *attitude* moving from spec to code, not the process. TDD still says write the test first; Urd says ask when the test you'd write isn't covered by the spec.
-</details>
+- When the spec is silent on a case the agent hits, it stops and asks instead of picking something.
+- When the spec contradicts itself, it names both sides and asks.
+- Before it adds a fallback, an exception or a `TODO` the spec did not sanction, or weakens a test to make code pass, it asks.
+- Its question names the step, quotes the spec, says what does not fit, gives numbered options and its recommendation.
+- It labels what it believes but has not checked, and re-reads the source when you challenge a claim.
 
-<details>
-<summary><b>What if I'd rather the agent just ship something?</b></summary>
+## Start
 
-Then don't install it. It's deliberately the opposite of "ship something." A correct outcome after a few clarification rounds beats a wrong outcome delivered without questions — but if you want the fast pass, this is the wrong tool.
-</details>
+1. Install with the two commands above.
 
-<details>
-<summary><b>Why "Urd"?</b></summary>
+   You see: `urd` among your plugins after the reload.
 
-Urð is the Norn who keeps the well at the root of Yggdrasil — the source of truth consulted before acting. The skill plays the same role for your codebase: the plan is the source of truth, not the agent's judgment. It's part of the [Yggdrasil family](#the-yggdrasil-family).
-</details>
+2. Hand the agent a plan and let it implement. For example, a plan step that says "On 5xx response, retry up to 3 times with exponential backoff."
 
----
+   You see: when the agent hits a case the plan does not cover, such as a 429, it stops with a question like this one.
+
+   > **Question: retry logic, step 4.** The plan covers 5xx, but I've hit **429 (rate-limited)**: not 5xx, yet retryable. The spec doesn't say how to treat it. Three options:
+   >
+   > 1. Treat 429 like 5xx: retry with backoff.
+   > 2. Honor the `Retry-After` header if present, otherwise back off.
+   > 3. Leave 429 to the caller: don't retry it here.
+   >
+   > I'd go with (2). Proceed?
+
+3. Answer with a number.
+
+   You see: the agent carries on with your choice. Well-written plans trigger few stops, and sparse plans trigger many.
+
+## What it does not do
+
+- It biases the agent toward asking; it is not a runtime guarantee that the agent always stops.
+- It does not fix a vague spec for you; it shows you the gaps.
+- It does not remove bugs.
+- It is the wrong tool if you want a fast pass with every deviation resolved silently.
+
+## Remove it
+
+In Claude Code:
+
+```
+claude plugin uninstall urd@urd-marketplace
+claude plugin marketplace remove urd-marketplace
+```
+
+On Copilot CLI, `copilot plugin uninstall urd@urd-marketplace`. On Cursor, delete the link in `~/.cursor/plugins/local/urd`. A copied skill file is removed by deleting it. Urd leaves nothing in your repository.
+
+## Where it fits
+
+Urd is an add-on of the family: it attaches to the agent, depends on no other family tool and keeps its own version. Inside a Horde mission it is the stop a worker hits before it guesses, and inside a Jarl loop the jarl itself follows it.
+
+Read more: [The skill](skills/urd/SKILL.md) · [Changelog](CHANGELOG.md) · [Report a problem](https://github.com/krzysztofdudek/UrdSkill/issues)
 
 ## The Yggdrasil family
 
@@ -197,7 +133,7 @@ Three add-ons attach to the agent rather than to the graph; each works alone, de
 
 ## License
 
-MIT © [Krzysztof Dudek](https://github.com/krzysztofdudek)
+MIT. Made by [Krzysztof Dudek](https://github.com/krzysztofdudek).
 
 ---
 
