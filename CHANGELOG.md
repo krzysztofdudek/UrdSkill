@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-10-22
+
 ### Changed
 - The skill's description now triggers on the moment before acting, not on the move from a plan into implementation, which agents rarely recognise as their situation. It names the signals of a message that can be read two ways: a question that reads like an instruction, a short reply to a proposal, a pronoun with no referent, a contradicting instruction, open scope words, a silent spec, a tempting workaround, an unchecked cause. The opening line of the body says the same, so the body no longer narrows what the description opens.
 
@@ -32,7 +34,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Claude Code plugin scaffolding: `.claude-plugin/plugin.json` (manifest) and `.claude-plugin/marketplace.json` (single-plugin marketplace listing). Installable via `/plugin marketplace add krzysztofdudek/BePreciseSkill` then `/plugin install be-precise@be-precise-marketplace`. Single-file drop-in works for any agent that reads markdown skills.
 - MIT license, README, CLAUDE.md with versioning workflow.
 
-[Unreleased]: https://github.com/krzysztofdudek/UrdSkill/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/krzysztofdudek/UrdSkill/compare/v0.3.1...HEAD
+[0.3.1]: https://github.com/krzysztofdudek/UrdSkill/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/krzysztofdudek/UrdSkill/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/krzysztofdudek/UrdSkill/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/krzysztofdudek/UrdSkill/releases/tag/v0.1.0
