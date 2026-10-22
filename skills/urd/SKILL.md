@@ -1,13 +1,13 @@
 ---
 name: urd
-description: Use when transitioning from a plan, design doc, or spec into implementation - optimize for accuracy over speed and cost; ask the user when confused, when the spec is ambiguous, or when tempted by a hack rather than guessing or working around it
+description: 'Use before you act on anything you are not sure you understood: a user message, a spec, a plan, a ticket, or a case you hit mid-task. Your default is to act; this fires when acting means picking one reading over another. Signals: the message could be a question or an instruction ("maybe…", "what if…", "I''m asking"); a short reply ("ok", "a", "sure") answers something you proposed; "this", "it" or "that" has no clear referent; a new instruction contradicts an earlier one; scope words leave the edge open ("everything", "the rest", "leave it"); the spec is silent on a case; you are tempted by a workaround; you are about to state a cause you have not checked. One question costs one message; the wrong reading costs a redo.'
 ---
 
 # Urd
 
 ## Overview
 
-When moving from plan/spec to implementation, **accuracy is the priority**. Speed and cost are secondary. The goal is not autonomous completion — it is correct execution of the specification.
+Before you act on anything you are not sure you understood (a user message, a spec, a plan, a ticket, a case you hit mid-task), **accuracy is the priority**. Speed and cost are secondary. The goal is not autonomous completion; it is doing what was actually meant.
 
 The user is available continuously. Use them.
 
